@@ -37,9 +37,7 @@ show_file_contents([]) ->
 
 list_entries(Name) ->
 	Contents = get_file_contents(Name),
-	EntryMap2 = lists:foldl(fun(Line, EntryMap) ->
-									lineCount(Line, EntryMap)
-							end, #{lineNum => 1}, Contents),
+	EntryMap2 = lists:foldl(fun lineCount/2, #{lineNum => 1}, Contents),
 	EntryMap3 = maps:remove(lineNum, EntryMap2),
 	% For each word, convert the list of lines to ranges/groups of lines
 	EntryList = maps:to_list(EntryMap3),
