@@ -15,12 +15,11 @@ format([], CurLine, FmtLines, _, _) ->
 	lists:reverse([CurLine|FmtLines]);
 
 format([Word|WordList], CurLine, FmtLines, RemLen, MaxLen) ->
-	WordLen = length(Word),
-	case WordLen < RemLen of
-		true ->
+	case length(Word) of
+		WordLen when WordLen < RemLen ->
 			CurLine2 = CurLine ++ " " ++ Word,
 			format(WordList, CurLine2, FmtLines, RemLen - WordLen - 1, MaxLen);
-		_ ->
+		WordLen ->
 			format(WordList, Word, [CurLine|FmtLines], MaxLen - WordLen, MaxLen)
 	end.
 
